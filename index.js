@@ -347,6 +347,7 @@ app.get('/posts', async (req,res)=>{
             })
         }
         else{
+            console.log('no token')
             res.json(null)
         }
     } catch (error) {
