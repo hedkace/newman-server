@@ -1,2 +1,2 @@
-A web app for a high school.
+Web app backend for a high school.
 
