@@ -327,24 +327,27 @@ app.post('/logout', (req,res) => {
 
 app.get('/posts', async (req,res)=>{
     try {
-        const {token} = req.cookies
-        console.log(token)
-        if(token){
-            jwt.verify(token, jwtSecret, {}, async (err, cookieData)=>{
-                if(err) throw err
-                const userDetails = {
-                    firstName:cookieData.firstName, 
-                    lastName:cookieData.lastName, 
-                    email: cookieData.email,
-                    active: cookieData.active,
-                    _id: cookieData._id,
-                    accountType: cookieData.accountType,
-                    schools: cookieData.schools
-                }
-                const posts = await Post.find({})
-                console.log(posts)
-                res.status(200).json(posts)
-            })
+        // const {token} = req.cookies
+        // console.log(token)
+        // if(token){
+        //     jwt.verify(token, jwtSecret, {}, async (err, cookieData)=>{
+        //         if(err) throw err
+        //         const userDetails = {
+        //             firstName:cookieData.firstName, 
+        //             lastName:cookieData.lastName, 
+        //             email: cookieData.email,
+        //             active: cookieData.active,
+        //             _id: cookieData._id,
+        //             accountType: cookieData.accountType,
+        //             schools: cookieData.schools
+        //         }
+        //         const posts = await Post.find({})
+        //         console.log(posts)
+        //         res.status(200).json(posts)
+        //     })
+            const posts = await Post.find({})
+            console.log(posts)
+            res.status(200).json(posts)
         }
         else{
             console.log('no token')
