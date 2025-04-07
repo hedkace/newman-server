@@ -345,14 +345,14 @@ app.get('/posts', async (req,res)=>{
         //         console.log(posts)
         //         res.status(200).json(posts)
         //     })
-            const posts = await Post.find({})
-            console.log(posts)
-            res.status(200).json(posts)
-        }
-        else{
-            console.log('no token')
-            res.json(null)
-        }
+        // }
+        // else{
+        //     console.log('no token')
+        //     res.json(null)
+        // }
+        const posts = await Post.find({})
+        console.log(posts)
+        res.status(200).json(posts)
     } catch (error) {
         console.log(error)
         res.status(400).json(null)
