@@ -1,9 +1,9 @@
 const express = require("express")
-const multer = require("multer")
+// const multer = require("multer")
 const { uploadMediaToCloudinary } = require("../helpers/cloudinary")
 
 
-const upload = multer({dest: 'uploads/'})
+// const upload = multer({dest: 'uploads/'})
 const router = express.Router()
 
 router.delete("/delete/:id", async (req, res) => {
