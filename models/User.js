@@ -26,6 +26,7 @@ const UserSchema = new Schema({
     secondEmail: {
         type: String,
         unique: true,
+        default: null
     },
     role: {
         type: String,
@@ -33,6 +34,7 @@ const UserSchema = new Schema({
     },
     phone: {
         type: Number,
+        unique: true,
         default: null
     },
     schools: {

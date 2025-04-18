@@ -12,7 +12,7 @@ const jwt = require('jsonwebtoken')
 const jwtSecret = process.env.JWT_SECRET
 const cookieParser = require('cookie-parser')
 const Post = require('./models/Post')
-//const multer = require('multer')
+const multer = require('multer')
 const cloudinary = require('cloudinary')
 const {uploadMediaToCloudinary, deleteMediaFromCloudinary} = require('./helpers/cloudinary')
 const mediaRoutes = require('./routes/media-routes')
@@ -327,32 +327,32 @@ app.post('/logout', (req,res) => {
 
 app.get('/posts', async (req,res)=>{
     try {
-        // const {token} = req.cookies
-        // console.log(token)
-        // if(token){
-        //     jwt.verify(token, jwtSecret, {}, async (err, cookieData)=>{
-        //         if(err) throw err
-        //         const userDetails = {
-        //             firstName:cookieData.firstName, 
-        //             lastName:cookieData.lastName, 
-        //             email: cookieData.email,
-        //             active: cookieData.active,
-        //             _id: cookieData._id,
-        //             accountType: cookieData.accountType,
-        //             schools: cookieData.schools
-        //         }
-        //         const posts = await Post.find({})
-        //         console.log(posts)
-        //         res.status(200).json(posts)
-        //     })
-        // }
-        // else{
-        //     console.log('no token')
-        //     res.json(null)
-        // }
-        const posts = await Post.find({})
-        console.log(posts)
-        res.status(200).json(posts)
+        const {token} = req.cookies
+        console.log(token)
+        if(token){
+            jwt.verify(token, jwtSecret, {}, async (err, cookieData)=>{
+                if(err) throw err
+                const userDetails = {
+                    firstName:cookieData.firstName, 
+                    lastName:cookieData.lastName, 
+                    email: cookieData.email,
+                    active: cookieData.active,
+                    _id: cookieData._id,
+                    accountType: cookieData.accountType,
+                    schools: cookieData.schools
+                }
+                const posts = await Post.find({})
+                console.log(posts)
+                res.status(200).json(posts)
+            })
+        }
+        else{
+            console.log('no token')
+            res.json(null)
+        }
+        // const posts = await Post.find({})
+        // console.log(posts)
+        // res.status(200).json(posts)
     } catch (error) {
         console.log(error)
         res.status(400).json(null)
@@ -368,6 +368,7 @@ app.post('/upload-from-link',async(req,res)=>{
 
 
 app.post('/post', async (req,res)=>{
+    console.log(req.body)
     const {
         authorId,
         title,
@@ -376,7 +377,7 @@ app.post('/post', async (req,res)=>{
         photoPosition
     } = req.body
     try {
-        const result = await Post.create({authorId,title,body,photos,photoPosition})
+        const result = await Post.create({authorId,title:title,body:body,photos,photoPosition})
         res.status(201).json(result)
     } catch (error) {
         console.log(error)
