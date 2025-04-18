@@ -326,7 +326,7 @@ app.post('/logout', (req,res) => {
 
 
 app.get('/posts', async (req,res)=>{
-    // try {
+    try {
     //     const {token} = req.cookies
     //     console.log(token)
     //     if(token){
