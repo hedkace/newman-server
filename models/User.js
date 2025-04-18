@@ -25,7 +25,6 @@ const UserSchema = new Schema({
     },
     secondEmail: {
         type: String,
-        unique: true,
         default: null
     },
     role: {
